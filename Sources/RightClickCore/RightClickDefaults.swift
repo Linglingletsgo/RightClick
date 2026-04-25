@@ -2,7 +2,7 @@ import Foundation
 
 public enum RightClickDefaults {
     public static func config(
-        homeDirectory: URL = FileManager.default.homeDirectoryForCurrentUser
+        homeDirectory: URL = UserHomeDirectory.current()
     ) -> RightClickConfig {
         RightClickConfig(
             watchedFolders: [

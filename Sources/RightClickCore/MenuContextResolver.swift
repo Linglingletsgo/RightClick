@@ -27,7 +27,7 @@ public enum MenuContextResolver {
                 : .unsupported
 
         case .container:
-            guard selectedURLs.isEmpty, let targetedURL else { return .unsupported }
+            guard let targetedURL else { return .unsupported }
             return isCovered(targetedURL, by: watchedFolders)
                 ? .container(targetedURL)
                 : .unsupported

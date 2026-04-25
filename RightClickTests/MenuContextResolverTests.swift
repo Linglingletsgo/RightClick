@@ -30,6 +30,21 @@ final class MenuContextResolverTests: XCTestCase {
         XCTAssertEqual(context, .container(folder))
     }
 
+    func testContainerContextIgnoresStaleSelection() {
+        let home = URL(fileURLWithPath: "/Users/example", isDirectory: true)
+        let folder = home.appendingPathComponent("Desktop", isDirectory: true)
+        let selected = [folder.appendingPathComponent("file.txt")]
+
+        let context = MenuContextResolver.resolve(
+            menuKind: .container,
+            selectedURLs: selected,
+            targetedURL: folder,
+            watchedFolders: [home]
+        )
+
+        XCTAssertEqual(context, .container(folder))
+    }
+
     func testReturnsUnsupportedOutsideWatchedFolders() {
         let watched = URL(fileURLWithPath: "/Users/example", isDirectory: true)
         let outside = URL(fileURLWithPath: "/Volumes/External/file.txt")

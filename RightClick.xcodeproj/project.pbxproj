@@ -19,6 +19,7 @@
 		000000000000000000000315 /* RightClickConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000215 /* RightClickConfig.swift */; };
 		000000000000000000000316 /* RightClickDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000216 /* RightClickDefaults.swift */; };
 		000000000000000000000317 /* RightClickCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000217 /* RightClickCore.swift */; };
+		000000000000000000000318 /* UserHomeDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000218 /* UserHomeDirectory.swift */; };
 		000000000000000000000330 /* RightClickFinderExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 000000000000000000000102 /* RightClickFinderExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		000000000000000000000410 /* ActionLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000210 /* ActionLogger.swift */; };
 		000000000000000000000411 /* ConfigStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000211 /* ConfigStore.swift */; };
@@ -28,6 +29,7 @@
 		000000000000000000000415 /* RightClickConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000215 /* RightClickConfig.swift */; };
 		000000000000000000000416 /* RightClickDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000216 /* RightClickDefaults.swift */; };
 		000000000000000000000417 /* RightClickCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000217 /* RightClickCore.swift */; };
+		000000000000000000000418 /* UserHomeDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000218 /* UserHomeDirectory.swift */; };
 		000000000000000000000420 /* FinderActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000220 /* FinderActions.swift */; };
 		000000000000000000000421 /* FinderSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000221 /* FinderSync.swift */; };
 /* End PBXBuildFile section */
@@ -73,6 +75,7 @@
 		000000000000000000000215 /* RightClickConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightClickConfig.swift; sourceTree = "<group>"; };
 		000000000000000000000216 /* RightClickDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightClickDefaults.swift; sourceTree = "<group>"; };
 		000000000000000000000217 /* RightClickCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightClickCore.swift; sourceTree = "<group>"; };
+		000000000000000000000218 /* UserHomeDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHomeDirectory.swift; sourceTree = "<group>"; };
 		000000000000000000000220 /* FinderActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinderActions.swift; sourceTree = "<group>"; };
 		000000000000000000000221 /* FinderSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinderSync.swift; sourceTree = "<group>"; };
 		000000000000000000000222 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -183,6 +186,7 @@
 				000000000000000000000215 /* RightClickConfig.swift */,
 				000000000000000000000217 /* RightClickCore.swift */,
 				000000000000000000000216 /* RightClickDefaults.swift */,
+				000000000000000000000218 /* UserHomeDirectory.swift */,
 			);
 			path = RightClickCore;
 			sourceTree = "<group>";
@@ -299,6 +303,7 @@
 				000000000000000000000315 /* RightClickConfig.swift in Sources */,
 				000000000000000000000317 /* RightClickCore.swift in Sources */,
 				000000000000000000000316 /* RightClickDefaults.swift in Sources */,
+				000000000000000000000318 /* UserHomeDirectory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,6 +321,7 @@
 				000000000000000000000415 /* RightClickConfig.swift in Sources */,
 				000000000000000000000417 /* RightClickCore.swift in Sources */,
 				000000000000000000000416 /* RightClickDefaults.swift in Sources */,
+				000000000000000000000418 /* UserHomeDirectory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

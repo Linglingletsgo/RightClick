@@ -3,11 +3,15 @@ import Foundation
 
 final class FinderActions {
     func copyPaths(_ urls: [URL]) {
-        copyToPasteboard(FinderActionFormatting.paths(for: urls))
+        let value = FinderActionFormatting.paths(for: urls)
+        copyToPasteboard(value)
+        ActionLogger.info("Copied \(urls.count) path(s) to pasteboard")
     }
 
     func copyNames(_ urls: [URL]) {
-        copyToPasteboard(FinderActionFormatting.names(for: urls))
+        let value = FinderActionFormatting.names(for: urls)
+        copyToPasteboard(value)
+        ActionLogger.info("Copied \(urls.count) name(s) to pasteboard")
     }
 
     func createFile(from template: NewFileTemplate, in directory: URL) {
@@ -27,6 +31,7 @@ final class FinderActions {
         }
 
         NSWorkspace.shared.activateFileViewerSelecting([fileURL])
+        ActionLogger.info("Created file: \(fileURL.path)")
     }
 
     func open(_ urls: [URL], with app: OpenWithApp) {
@@ -45,6 +50,8 @@ final class FinderActions {
         ) { _, error in
             if let error {
                 ActionLogger.error("Could not open with \(app.name): \(error.localizedDescription)")
+            } else {
+                ActionLogger.info("Opened \(targetURLs.count) item(s) with \(app.name)")
             }
         }
     }
@@ -56,6 +63,7 @@ final class FinderActions {
         }
 
         NSWorkspace.shared.open(favorite.url)
+        ActionLogger.info("Opened favorite: \(favorite.url.path)")
     }
 
     private func copyToPasteboard(_ value: String) {

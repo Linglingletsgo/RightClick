@@ -23,6 +23,14 @@ final class ConfigStoreTests: XCTestCase {
         XCTAssertFalse(store.load().enabledItems.copyPath)
     }
 
+    func testDefaultConfigURLUsesRealApplicationSupportLocation() {
+        let url = ConfigStore.defaultConfigURL()
+
+        XCTAssertEqual(url.lastPathComponent, "config.json")
+        XCTAssertTrue(url.path.hasSuffix("/Library/Application Support/RightClick/config.json"))
+        XCTAssertFalse(url.path.contains("/Library/Containers/com.dominicduan.RightClick"))
+    }
+
     private func temporaryDirectory() -> URL {
         FileManager.default.temporaryDirectory
             .appendingPathComponent(UUID().uuidString, isDirectory: true)

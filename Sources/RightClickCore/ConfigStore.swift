@@ -37,9 +37,7 @@ public final class ConfigStore {
     }
 
     public static func defaultConfigURL() -> URL {
-        let directory = FileManager.default
-            .containerURL(forSecurityApplicationGroupIdentifier: "group.com.dominicduan.RightClick")
-            ?? FileManager.default.homeDirectoryForCurrentUser
+        let directory = UserHomeDirectory.current()
             .appendingPathComponent("Library", isDirectory: true)
             .appendingPathComponent("Application Support", isDirectory: true)
             .appendingPathComponent("RightClick", isDirectory: true)
