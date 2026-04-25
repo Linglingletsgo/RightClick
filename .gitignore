@@ -1,7 +1,22 @@
+# macOS
 .DS_Store
+
+# SwiftPM / Xcode build output
 .build/
 DerivedData/
-dist/
+*.xcresult
+
+# Xcode user state
+xcuserdata/
 *.xcuserdata/
 **/*.xcuserdata/
 *.xcscmblueprint
+
+# Local agent/session state
+.agent/
+.codex/
+
+# Release artifacts
+dist/
+*.dmg
+*.zip

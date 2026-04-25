@@ -35,6 +35,7 @@
 		000000000000000000000419 /* OfficeTemplateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000219 /* OfficeTemplateData.swift */; };
 		000000000000000000000420 /* FinderActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000220 /* FinderActions.swift */; };
 		000000000000000000000421 /* FinderSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000221 /* FinderSync.swift */; };
+		000000000000000000000422 /* HiddenFilesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000224 /* HiddenFilesController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		000000000000000000000221 /* FinderSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinderSync.swift; sourceTree = "<group>"; };
 		000000000000000000000222 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		000000000000000000000223 /* RightClickFinderExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RightClickFinderExtension.entitlements; sourceTree = "<group>"; };
+		000000000000000000000224 /* HiddenFilesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenFilesController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 			children = (
 				000000000000000000000220 /* FinderActions.swift */,
 				000000000000000000000221 /* FinderSync.swift */,
+				000000000000000000000224 /* HiddenFilesController.swift */,
 				000000000000000000000222 /* Info.plist */,
 				000000000000000000000223 /* RightClickFinderExtension.entitlements */,
 			);
@@ -322,6 +325,7 @@
 			files = (
 				000000000000000000000420 /* FinderActions.swift in Sources */,
 				000000000000000000000421 /* FinderSync.swift in Sources */,
+				000000000000000000000422 /* HiddenFilesController.swift in Sources */,
 				000000000000000000000410 /* ActionLogger.swift in Sources */,
 				000000000000000000000411 /* ConfigStore.swift in Sources */,
 				000000000000000000000412 /* FileNameGenerator.swift in Sources */,
@@ -476,7 +480,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../PlugIns",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dominicduan.RightClick;
 				PRODUCT_NAME = RightClick;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -501,7 +505,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../PlugIns",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dominicduan.RightClick;
 				PRODUCT_NAME = RightClick;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -525,7 +529,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dominicduan.RightClick.FinderExtension;
 				PRODUCT_NAME = RightClickFinderExtension;
 				SKIP_INSTALL = YES;
@@ -550,7 +554,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dominicduan.RightClick.FinderExtension;
 				PRODUCT_NAME = RightClickFinderExtension;
 				SKIP_INSTALL = YES;

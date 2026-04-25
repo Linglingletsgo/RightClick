@@ -58,14 +58,14 @@ final class FinderActions {
         }
     }
 
-    func openFavorite(_ favorite: FavoriteFolder) {
-        guard FileManager.default.fileExists(atPath: favorite.url.path) else {
-            ActionLogger.error("Favorite does not exist: \(favorite.url.path)")
+    func openFolder(_ folder: FavoriteFolder) {
+        guard FileManager.default.fileExists(atPath: folder.url.path) else {
+            ActionLogger.error("Open folder target does not exist: \(folder.url.path)")
             return
         }
 
-        NSWorkspace.shared.open(favorite.url)
-        ActionLogger.info("Opened favorite: \(favorite.url.path)")
+        NSWorkspace.shared.open(folder.url)
+        ActionLogger.info("Opened folder: \(folder.url.path)")
     }
 
     private func copyToPasteboard(_ value: String) {

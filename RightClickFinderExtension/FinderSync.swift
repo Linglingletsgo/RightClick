@@ -48,22 +48,16 @@ final class FinderSync: FIFinderSync {
     private func selectedItemsMenu(urls: [URL], config: RightClickConfig) -> NSMenu {
         let menu = NSMenu(title: "RightClick")
 
-        if config.enabledItems.copyPath {
-            menu.addItem(menuItem(title: "Copy Path", action: #selector(copyPath(_:))))
+        if let copyItem = copyMenuItem(config: config) {
+            menu.addItem(copyItem)
         }
 
-        if config.enabledItems.copyName {
-            menu.addItem(menuItem(title: "Copy Name", action: #selector(copyName(_:))))
-        }
-
-        if config.enabledItems.openWith {
-            for app in config.openWithApps {
-                menu.addItem(menuItem(title: "Open with \(app.name)", action: #selector(openWith(_:))))
-            }
+        if let openWithItem = openWithMenuItem(config.openWithApps, isEnabled: config.enabledItems.openWith) {
+            menu.addItem(openWithItem)
         }
 
         if config.enabledItems.favorites {
-            menu.addItem(favoritesMenuItem(config.favorites))
+            menu.addItem(openFolderMenuItem(config.favorites))
         }
 
         return menu
@@ -72,36 +66,76 @@ final class FinderSync: FIFinderSync {
     private func containerMenu(directory: URL, config: RightClickConfig) -> NSMenu {
         let menu = NSMenu(title: "RightClick")
 
-        if config.enabledItems.newFile {
-            for template in config.newFileTemplates {
-                menu.addItem(
-                    menuItem(
-                        title: "New \(template.name) File",
-                        action: #selector(newFile(_:))
-                    )
-                )
-            }
+        if let newFileItem = newFileMenuItem(config.newFileTemplates, isEnabled: config.enabledItems.newFile) {
+            menu.addItem(newFileItem)
         }
 
         if config.enabledItems.favorites {
-            menu.addItem(favoritesMenuItem(config.favorites))
+            menu.addItem(openFolderMenuItem(config.favorites))
         }
+
+        if menu.numberOfItems > 0 {
+            menu.addItem(.separator())
+        }
+        menu.addItem(menuItem(title: hiddenFilesMenuTitle, action: #selector(toggleHiddenFiles(_:))))
 
         return menu
     }
 
-    private func favoritesMenuItem(_ favorites: [FavoriteFolder]) -> NSMenuItem {
+    private func copyMenuItem(config: RightClickConfig) -> NSMenuItem? {
+        let submenu = NSMenu(title: "Copy")
+
+        if config.enabledItems.copyPath {
+            submenu.addItem(menuItem(title: "Path", action: #selector(copyPath(_:))))
+        }
+
+        if config.enabledItems.copyName {
+            submenu.addItem(menuItem(title: "Name", action: #selector(copyName(_:))))
+        }
+
+        guard submenu.numberOfItems > 0 else { return nil }
+        return parentMenuItem(title: "Copy", submenu: submenu)
+    }
+
+    private func newFileMenuItem(_ templates: [NewFileTemplate], isEnabled: Bool) -> NSMenuItem? {
+        guard isEnabled, !templates.isEmpty else { return nil }
+
+        let submenu = NSMenu(title: "New")
+        for template in templates {
+            submenu.addItem(
+                menuItem(
+                    title: "\(template.name) File",
+                    action: #selector(newFile(_:))
+                )
+            )
+        }
+
+        return parentMenuItem(title: "New", submenu: submenu)
+    }
+
+    private func openWithMenuItem(_ apps: [OpenWithApp], isEnabled: Bool) -> NSMenuItem? {
+        guard isEnabled, !apps.isEmpty else { return nil }
+
+        let submenu = NSMenu(title: "Open With")
+        for app in apps {
+            submenu.addItem(menuItem(title: app.name, action: #selector(openWith(_:))))
+        }
+
+        return parentMenuItem(title: "Open With", submenu: submenu)
+    }
+
+    private func openFolderMenuItem(_ folders: [FavoriteFolder]) -> NSMenuItem {
         let item = NSMenuItem(title: "Open Folder", action: nil, keyEquivalent: "")
         let submenu = NSMenu(title: "Open Folder")
 
-        if favorites.isEmpty {
-            let emptyItem = NSMenuItem(title: "No Favorites", action: nil, keyEquivalent: "")
+        if folders.isEmpty {
+            let emptyItem = NSMenuItem(title: "No Folders", action: nil, keyEquivalent: "")
             emptyItem.isEnabled = false
             submenu.addItem(emptyItem)
         } else {
-            for favorite in favorites {
+            for folder in folders {
                 submenu.addItem(
-                    menuItem(title: favorite.name, action: #selector(openFavorite(_:)))
+                    menuItem(title: folder.name, action: #selector(openFolder(_:)))
                 )
             }
         }
@@ -110,9 +144,19 @@ final class FinderSync: FIFinderSync {
         return item
     }
 
+    private var hiddenFilesMenuTitle: String {
+        HiddenFilesController.isShowingHiddenFiles ? "Hide Hidden Folders" : "Show Hidden Folders"
+    }
+
     private func menuItem(title: String, action: Selector) -> NSMenuItem {
         let item = NSMenuItem(title: title, action: action, keyEquivalent: "")
         item.target = self
+        return item
+    }
+
+    private func parentMenuItem(title: String, submenu: NSMenu) -> NSMenuItem {
+        let item = NSMenuItem(title: title, action: nil, keyEquivalent: "")
+        item.submenu = submenu
         return item
     }
 
@@ -154,7 +198,7 @@ final class FinderSync: FIFinderSync {
     @objc private func newFile(_ sender: NSMenuItem) {
         ActionLogger.info("New File selected")
         let config = store.load()
-        guard let template = config.newFileTemplates.first(where: { sender.title == "New \($0.name) File" }) else {
+        guard let template = config.newFileTemplates.first(where: { sender.title == "\($0.name) File" }) else {
             ActionLogger.error("New File template not found for menu title: \(sender.title)")
             return
         }
@@ -170,7 +214,7 @@ final class FinderSync: FIFinderSync {
     @objc private func openWith(_ sender: NSMenuItem) {
         ActionLogger.info("Open With selected")
         let config = store.load()
-        guard let app = config.openWithApps.first(where: { sender.title == "Open with \($0.name)" }) else {
+        guard let app = config.openWithApps.first(where: { sender.title == $0.name }) else {
             ActionLogger.error("Open With app not found for menu title: \(sender.title)")
             return
         }
@@ -184,14 +228,19 @@ final class FinderSync: FIFinderSync {
         actions.open(urls, with: app)
     }
 
-    @objc private func openFavorite(_ sender: NSMenuItem) {
-        ActionLogger.info("Open Favorite selected")
+    @objc private func openFolder(_ sender: NSMenuItem) {
+        ActionLogger.info("Open Folder selected")
         let config = store.load()
-        guard let favorite = config.favorites.first(where: { $0.name == sender.title }) else {
-            ActionLogger.error("Favorite not found for menu title: \(sender.title)")
+        guard let folder = config.favorites.first(where: { $0.name == sender.title }) else {
+            ActionLogger.error("Open folder target not found for menu title: \(sender.title)")
             return
         }
-        actions.openFavorite(favorite)
+        actions.openFolder(folder)
+    }
+
+    @objc private func toggleHiddenFiles(_ sender: NSMenuItem) {
+        ActionLogger.info("\(sender.title) selected")
+        HiddenFilesController.toggle()
     }
 
     private func selectedURLsForAction() -> [URL] {

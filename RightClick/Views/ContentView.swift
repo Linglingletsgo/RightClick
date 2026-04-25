@@ -36,7 +36,7 @@ struct ContentView: View {
         case .openWithApps:
             OpenWithAppsView(viewModel: viewModel)
         case .favorites:
-            FavoritesView(viewModel: viewModel)
+            OpenFolderView(viewModel: viewModel)
         }
     }
 }
@@ -56,7 +56,7 @@ private enum SettingsSection: String, CaseIterable, Identifiable {
         case .menuItems: "Menu Items"
         case .newFileTemplates: "New File Templates"
         case .openWithApps: "Open With Apps"
-        case .favorites: "Favorites"
+        case .favorites: "Open Folder"
         }
     }
 
@@ -66,7 +66,7 @@ private enum SettingsSection: String, CaseIterable, Identifiable {
         case .menuItems: "switch.2"
         case .newFileTemplates: "doc.badge.plus"
         case .openWithApps: "app"
-        case .favorites: "star"
+        case .favorites: "folder.badge.gearshape"
         }
     }
 }
@@ -125,7 +125,7 @@ private struct MenuItemsView: View {
                 Toggle("Copy Name", isOn: $viewModel.config.enabledItems.copyName)
                 Toggle("New File", isOn: $viewModel.config.enabledItems.newFile)
                 Toggle("Open With", isOn: $viewModel.config.enabledItems.openWith)
-                Toggle("Favorites", isOn: $viewModel.config.enabledItems.favorites)
+                Toggle("Open Folder", isOn: $viewModel.config.enabledItems.favorites)
             }
             .toggleStyle(.switch)
         }
@@ -183,11 +183,11 @@ private struct OpenWithAppsView: View {
     }
 }
 
-private struct FavoritesView: View {
+private struct OpenFolderView: View {
     @ObservedObject var viewModel: ConfigViewModel
 
     var body: some View {
-        SettingsPane(title: "Favorites") {
+        SettingsPane(title: "Open Folder") {
             Table(viewModel.config.favorites) {
                 TableColumn("Name", value: \.name)
                 TableColumn("Path") { favorite in
@@ -206,7 +206,7 @@ private struct FavoritesView: View {
                         Image(systemName: "minus.circle")
                     }
                     .buttonStyle(.borderless)
-                    .help("Remove favorite")
+                    .help("Remove folder")
                 }
                 .width(44)
             }
@@ -215,7 +215,7 @@ private struct FavoritesView: View {
             Button {
                 chooseFolder { viewModel.addFavorite($0) }
             } label: {
-                Label("Add Favorite", systemImage: "plus")
+                Label("Add Folder", systemImage: "plus")
             }
         }
     }
