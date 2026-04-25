@@ -23,6 +23,20 @@ final class ConfigStoreTests: XCTestCase {
         XCTAssertFalse(store.load().enabledItems.copyPath)
     }
 
+    func testLoadMergesMissingDefaultNewFileTemplates() throws {
+        let directory = temporaryDirectory()
+        let configURL = directory.appendingPathComponent("config.json")
+        let store = ConfigStore(configURL: configURL)
+        var config = RightClickDefaults.config(homeDirectory: URL(fileURLWithPath: "/Users/example"))
+        config.newFileTemplates = [
+            NewFileTemplate(name: "Markdown", fileExtension: "md")
+        ]
+
+        try store.save(config)
+
+        XCTAssertEqual(store.load().newFileTemplates.map(\.fileExtension), ["md", "txt", "swift", "docx", "xlsx", "pptx"])
+    }
+
     func testDefaultConfigURLUsesRealApplicationSupportLocation() {
         let url = ConfigStore.defaultConfigURL()
 

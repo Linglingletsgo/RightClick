@@ -91,8 +91,8 @@ final class FinderSync: FIFinderSync {
     }
 
     private func favoritesMenuItem(_ favorites: [FavoriteFolder]) -> NSMenuItem {
-        let item = NSMenuItem(title: "Open Favorites", action: nil, keyEquivalent: "")
-        let submenu = NSMenu(title: "Open Favorites")
+        let item = NSMenuItem(title: "Open Folder", action: nil, keyEquivalent: "")
+        let submenu = NSMenu(title: "Open Folder")
 
         if favorites.isEmpty {
             let emptyItem = NSMenuItem(title: "No Favorites", action: nil, keyEquivalent: "")

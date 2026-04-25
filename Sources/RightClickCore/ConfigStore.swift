@@ -26,7 +26,7 @@ public final class ConfigStore {
             return RightClickDefaults.config()
         }
 
-        return config
+        return Self.mergedWithDefaults(config)
     }
 
     public func save(_ config: RightClickConfig) throws {
@@ -43,5 +43,18 @@ public final class ConfigStore {
             .appendingPathComponent("RightClick", isDirectory: true)
 
         return directory.appendingPathComponent("config.json", isDirectory: false)
+    }
+
+    private static func mergedWithDefaults(_ config: RightClickConfig) -> RightClickConfig {
+        let defaults = RightClickDefaults.config()
+        var merged = config
+        var existingTemplateExtensions = Set(config.newFileTemplates.map { $0.fileExtension.lowercased() })
+
+        for template in defaults.newFileTemplates where !existingTemplateExtensions.contains(template.fileExtension.lowercased()) {
+            merged.newFileTemplates.append(template)
+            existingTemplateExtensions.insert(template.fileExtension.lowercased())
+        }
+
+        return merged
     }
 }

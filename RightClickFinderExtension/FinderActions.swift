@@ -25,7 +25,9 @@ final class FinderActions {
             fileExtension: template.fileExtension
         )
 
-        guard FileManager.default.createFile(atPath: fileURL.path, contents: Data()) else {
+        let contents = OfficeTemplateData.data(forFileExtension: template.fileExtension) ?? Data()
+
+        guard FileManager.default.createFile(atPath: fileURL.path, contents: contents) else {
             ActionLogger.error("Could not create file: \(fileURL.path)")
             return
         }

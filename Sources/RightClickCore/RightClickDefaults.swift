@@ -12,7 +12,10 @@ public enum RightClickDefaults {
             newFileTemplates: [
                 NewFileTemplate(name: "Markdown", fileExtension: "md"),
                 NewFileTemplate(name: "Text", fileExtension: "txt"),
-                NewFileTemplate(name: "Swift", fileExtension: "swift")
+                NewFileTemplate(name: "Swift", fileExtension: "swift"),
+                NewFileTemplate(name: "Word", fileExtension: "docx"),
+                NewFileTemplate(name: "Excel", fileExtension: "xlsx"),
+                NewFileTemplate(name: "PowerPoint", fileExtension: "pptx")
             ],
             openWithApps: [
                 OpenWithApp(name: "TextEdit", bundleIdentifier: "com.apple.TextEdit"),

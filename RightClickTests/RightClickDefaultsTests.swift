@@ -13,7 +13,7 @@ final class RightClickDefaultsTests: XCTestCase {
         XCTAssertTrue(config.enabledItems.newFile)
         XCTAssertTrue(config.enabledItems.openWith)
         XCTAssertTrue(config.enabledItems.favorites)
-        XCTAssertEqual(config.newFileTemplates.map(\.fileExtension), ["md", "txt", "swift"])
+        XCTAssertEqual(config.newFileTemplates.map(\.fileExtension), ["md", "txt", "swift", "docx", "xlsx", "pptx"])
         XCTAssertEqual(config.openWithApps.map(\.name), ["TextEdit", "Terminal"])
         XCTAssertEqual(config.favorites.map(\.name), ["Projects"])
     }
