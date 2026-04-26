@@ -74,9 +74,6 @@ final class FinderSync: FIFinderSync {
             menu.addItem(openFolderMenuItem(config.favorites))
         }
 
-        if menu.numberOfItems > 0 {
-            menu.addItem(.separator())
-        }
         menu.addItem(menuItem(title: hiddenFilesMenuTitle, action: #selector(toggleHiddenFiles(_:))))
 
         return menu

@@ -1,4 +1,3 @@
-import AppKit
 import Foundation
 
 enum HiddenFilesController {
@@ -11,40 +10,49 @@ enum HiddenFilesController {
     }
 
     static var isShowingHiddenFiles: Bool {
-        CFPreferencesCopyAppValue(settingKey, finderBundleIdentifier) as? Bool ?? false
+        isEnabled(CFPreferencesCopyAppValue(settingKey, finderBundleIdentifier))
     }
 
     static func toggle() {
         let nextValue = !isShowingHiddenFiles
-        CFPreferencesSetAppValue(settingKey, nextValue as CFBoolean, finderBundleIdentifier)
-        CFPreferencesAppSynchronize(finderBundleIdentifier)
+        CFPreferencesSetValue(
+            settingKey,
+            nextValue as CFBoolean,
+            finderBundleIdentifier,
+            kCFPreferencesCurrentUser,
+            kCFPreferencesAnyHost
+        )
+        CFPreferencesSynchronize(finderBundleIdentifier, kCFPreferencesCurrentUser, kCFPreferencesAnyHost)
         restartFinder()
         ActionLogger.info(nextValue ? "Enabled hidden files in Finder" : "Disabled hidden files in Finder")
     }
 
-    private static func restartFinder() {
-        let finderApplications = NSRunningApplication.runningApplications(withBundleIdentifier: "com.apple.finder")
-
-        if finderApplications.isEmpty {
-            openFinder()
-            return
-        }
-
-        for application in finderApplications {
-            application.terminate()
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-            openFinder()
+    private static func isEnabled(_ value: Any?) -> Bool {
+        switch value {
+        case let boolValue as Bool:
+            return boolValue
+        case let numberValue as NSNumber:
+            return numberValue.boolValue
+        case let stringValue as String:
+            return ["1", "true", "yes", "on"].contains(stringValue.trimmingCharacters(in: .whitespacesAndNewlines).lowercased())
+        default:
+            return false
         }
     }
 
-    private static func openFinder() {
-        let finderURL = URL(fileURLWithPath: "/System/Library/CoreServices/Finder.app", isDirectory: true)
-        NSWorkspace.shared.openApplication(at: finderURL, configuration: NSWorkspace.OpenConfiguration()) { _, error in
-            if let error {
-                ActionLogger.error("Could not relaunch Finder: \(error.localizedDescription)")
+    private static func restartFinder() {
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/usr/bin/killall")
+        process.arguments = ["Finder"]
+
+        do {
+            try process.run()
+            process.waitUntilExit()
+            if process.terminationStatus != 0 {
+                ActionLogger.error("Could not restart Finder. killall exited with \(process.terminationStatus)")
             }
+        } catch {
+            ActionLogger.error("Could not restart Finder: \(error.localizedDescription)")
         }
     }
 }
