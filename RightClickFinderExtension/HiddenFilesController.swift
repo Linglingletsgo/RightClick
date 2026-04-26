@@ -1,58 +1,35 @@
+import ApplicationServices
+import CoreGraphics
 import Foundation
 
 enum HiddenFilesController {
-    private static var finderBundleIdentifier: CFString {
-        "com.apple.finder" as CFString
-    }
-
-    private static var settingKey: CFString {
-        "AppleShowAllFiles" as CFString
-    }
-
-    static var isShowingHiddenFiles: Bool {
-        isEnabled(CFPreferencesCopyAppValue(settingKey, finderBundleIdentifier))
-    }
+    private static let periodKeyCode: CGKeyCode = 47
 
     static func toggle() {
-        let nextValue = !isShowingHiddenFiles
-        CFPreferencesSetValue(
-            settingKey,
-            nextValue as CFBoolean,
-            finderBundleIdentifier,
-            kCFPreferencesCurrentUser,
-            kCFPreferencesAnyHost
-        )
-        CFPreferencesSynchronize(finderBundleIdentifier, kCFPreferencesCurrentUser, kCFPreferencesAnyHost)
-        restartFinder()
-        ActionLogger.info(nextValue ? "Enabled hidden files in Finder" : "Disabled hidden files in Finder")
+        guard hasAccessibilityPermission(promptIfNeeded: true) else {
+            ActionLogger.error("Accessibility permission is required to post the hidden files shortcut")
+            return
+        }
+
+        let source = CGEventSource(stateID: .hidSystemState)
+        let flags: CGEventFlags = [.maskCommand, .maskShift]
+
+        guard let keyDown = CGEvent(keyboardEventSource: source, virtualKey: periodKeyCode, keyDown: true),
+              let keyUp = CGEvent(keyboardEventSource: source, virtualKey: periodKeyCode, keyDown: false) else {
+            ActionLogger.error("Could not create hidden files shortcut event")
+            return
+        }
+
+        keyDown.flags = flags
+        keyUp.flags = flags
+        keyDown.post(tap: .cghidEventTap)
+        keyUp.post(tap: .cghidEventTap)
+        ActionLogger.info("Posted Shift-Command-. hidden files shortcut")
     }
 
-    private static func isEnabled(_ value: Any?) -> Bool {
-        switch value {
-        case let boolValue as Bool:
-            return boolValue
-        case let numberValue as NSNumber:
-            return numberValue.boolValue
-        case let stringValue as String:
-            return ["1", "true", "yes", "on"].contains(stringValue.trimmingCharacters(in: .whitespacesAndNewlines).lowercased())
-        default:
-            return false
-        }
-    }
-
-    private static func restartFinder() {
-        let process = Process()
-        process.executableURL = URL(fileURLWithPath: "/usr/bin/killall")
-        process.arguments = ["Finder"]
-
-        do {
-            try process.run()
-            process.waitUntilExit()
-            if process.terminationStatus != 0 {
-                ActionLogger.error("Could not restart Finder. killall exited with \(process.terminationStatus)")
-            }
-        } catch {
-            ActionLogger.error("Could not restart Finder: \(error.localizedDescription)")
-        }
+    private static func hasAccessibilityPermission(promptIfNeeded: Bool) -> Bool {
+        let promptKey = "AXTrustedCheckOptionPrompt"
+        let options = [promptKey: promptIfNeeded] as CFDictionary
+        return AXIsProcessTrustedWithOptions(options)
     }
 }
