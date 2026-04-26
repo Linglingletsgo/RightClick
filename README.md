@@ -46,8 +46,11 @@ Selected-item menus do not show `New`. Blank-area folder menus do not show `Copy
 1. Download `RightClick-0.1.0.dmg` from the GitHub release.
 2. Open the DMG and drag `RightClick.app` into `Applications`.
 3. Launch `RightClick.app`.
-4. Open System Settings, go to Login Items & Extensions, then enable the `RightClick` Finder extension.
-5. Restart Finder if the menu does not appear immediately.
+   - RightClick is not notarized yet. If macOS blocks the first launch, right-click `RightClick.app` in `Applications`, choose `Open`, then choose `Open` again in the confirmation dialog.
+   - If macOS still blocks it, open System Settings > Privacy & Security and use `Open Anyway` for RightClick.
+4. Open System Settings > General > Login Items & Extensions > Extensions > Finder, then enable the `RightClick` Finder extension.
+5. Open System Settings > Privacy & Security > Accessibility, add `/Applications/RightClick.app`, and enable it. This is required for `Show/Hide Hidden Folders`, which posts Finder's native `Shift-Command-.` shortcut.
+6. Restart Finder if the menu does not appear immediately.
 
 ## Usage
 
@@ -75,4 +78,5 @@ The DMG is written to `dist/RightClick-0.1.0.dmg`.
 
 - RightClick is built for personal use and is not designed as a public plugin platform.
 - The app uses macOS Finder Sync, so menus only appear inside watched folders.
+- The app is locally signed for personal use but is not Apple notarized. For broader public distribution, use a Developer ID certificate and Apple notarization.
 - Version `0.1.0` targets macOS 26.

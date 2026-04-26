@@ -21,6 +21,8 @@ xcodebuild \
   -derivedDataPath "$DERIVED_DATA" \
   build
 
+"$ROOT_DIR/script/sign_local.sh" "$APP_BUNDLE"
+
 cp -R "$APP_BUNDLE" "$STAGING_DIR/$APP_NAME.app"
 ln -s /Applications "$STAGING_DIR/Applications"
 
