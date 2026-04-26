@@ -142,7 +142,7 @@ final class FinderSync: FIFinderSync {
     }
 
     private var hiddenFilesMenuTitle: String {
-        HiddenFilesController.isShowingHiddenFiles ? "Hide Hidden Folders" : "Show Hidden Folders"
+        "Show/Hide Hidden Folders"
     }
 
     private func menuItem(title: String, action: Selector) -> NSMenuItem {
@@ -237,7 +237,8 @@ final class FinderSync: FIFinderSync {
 
     @objc private func toggleHiddenFiles(_ sender: NSMenuItem) {
         ActionLogger.info("\(sender.title) selected")
-        HiddenFilesController.toggle()
+        guard let url = URL(string: "rightclick://toggle-hidden-files") else { return }
+        NSWorkspace.shared.open(url)
     }
 
     private func selectedURLsForAction() -> [URL] {

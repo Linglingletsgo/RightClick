@@ -22,6 +22,7 @@
 		000000000000000000000317 /* RightClickCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000217 /* RightClickCore.swift */; };
 		000000000000000000000318 /* UserHomeDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000218 /* UserHomeDirectory.swift */; };
 		000000000000000000000319 /* OfficeTemplateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000219 /* OfficeTemplateData.swift */; };
+		000000000000000000000320 /* HiddenFilesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000224 /* HiddenFilesController.swift */; };
 		000000000000000000000330 /* RightClickFinderExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 000000000000000000000102 /* RightClickFinderExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		000000000000000000000410 /* ActionLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000210 /* ActionLogger.swift */; };
 		000000000000000000000411 /* ConfigStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000211 /* ConfigStore.swift */; };
@@ -316,6 +317,7 @@
 				000000000000000000000316 /* RightClickDefaults.swift in Sources */,
 				000000000000000000000318 /* UserHomeDirectory.swift in Sources */,
 				000000000000000000000319 /* OfficeTemplateData.swift in Sources */,
+				000000000000000000000320 /* HiddenFilesController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
