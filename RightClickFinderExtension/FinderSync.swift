@@ -237,7 +237,15 @@ final class FinderSync: FIFinderSync {
 
     @objc private func toggleHiddenFiles(_ sender: NSMenuItem) {
         ActionLogger.info("\(sender.title) selected")
-        HiddenFilesController.toggle()
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/usr/bin/open")
+        process.arguments = ["-g", "-j", "rightclick://toggle-hidden-files"]
+
+        do {
+            try process.run()
+        } catch {
+            ActionLogger.error("Could not dispatch hidden files toggle: \(error.localizedDescription)")
+        }
     }
 
     private func selectedURLsForAction() -> [URL] {

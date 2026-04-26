@@ -36,7 +36,6 @@
 		000000000000000000000419 /* OfficeTemplateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000219 /* OfficeTemplateData.swift */; };
 		000000000000000000000420 /* FinderActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000220 /* FinderActions.swift */; };
 		000000000000000000000421 /* FinderSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000221 /* FinderSync.swift */; };
-		000000000000000000000422 /* HiddenFilesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000224 /* HiddenFilesController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -327,7 +326,6 @@
 			files = (
 				000000000000000000000420 /* FinderActions.swift in Sources */,
 				000000000000000000000421 /* FinderSync.swift in Sources */,
-				000000000000000000000422 /* HiddenFilesController.swift in Sources */,
 				000000000000000000000410 /* ActionLogger.swift in Sources */,
 				000000000000000000000411 /* ConfigStore.swift in Sources */,
 				000000000000000000000412 /* FileNameGenerator.swift in Sources */,

@@ -55,7 +55,7 @@ Selected-item menus do not show `New`. Blank-area folder menus do not show `Copy
 - Right-click selected items to copy paths, copy names, or open with configured apps.
 - Right-click blank space inside a watched folder to create new files.
 - Use `Open Folder` to jump to configured folders.
-- The hidden-files toggle uses Finder's native `Shift-Command-.` shortcut. macOS may ask for Accessibility permission the first time this shortcut is posted.
+- The hidden-files toggle uses Finder's native `Shift-Command-.` shortcut through the background command path. macOS may ask for Accessibility permission for `RightClick` the first time this shortcut is posted.
 
 ## Build
 
