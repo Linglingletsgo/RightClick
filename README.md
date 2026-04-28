@@ -48,7 +48,7 @@ Selected-item menus do not show `New`. Blank-area folder menus do not show `Copy
 3. Launch `RightClick.app`.
    - RightClick is not notarized yet. If macOS blocks the first launch, right-click `RightClick.app` in `Applications`, choose `Open`, then choose `Open` again in the confirmation dialog.
    - If macOS still blocks it, open System Settings > Privacy & Security and use `Open Anyway` for RightClick.
-4. Open System Settings > General > Login Items & Extensions > Extensions > Finder, then enable the `RightClick` Finder extension.
+4. Open System Settings > General > Login Items & Extensions > Extensions, choose `RightClick`, enable `File Provider`, then click `Done`.
 5. Open System Settings > Privacy & Security > Accessibility, add `/Applications/RightClick.app`, and enable it. This is required for `Show/Hide Hidden Folders`, which posts Finder's native `Shift-Command-.` shortcut.
 6. Restart Finder if the menu does not appear immediately.
 
