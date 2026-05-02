@@ -21,6 +21,12 @@ public enum MenuContextResolver {
     ) -> RightClickMenuContext {
         switch menuKind {
         case .items:
+            if let targetedURL,
+               isCovered(targetedURL, by: watchedFolders),
+               selectedURLs.allSatisfy({ !isInside($0, directory: targetedURL) }) {
+                return .container(targetedURL)
+            }
+
             guard !selectedURLs.isEmpty else { return .unsupported }
             return selectedURLs.allSatisfy { isCovered($0, by: watchedFolders) }
                 ? .selectedItems(selectedURLs)
@@ -44,6 +50,12 @@ public enum MenuContextResolver {
             let folderPath = standardizedPath(folder)
             return path == folderPath || path.hasPrefix(folderPath + "/")
         }
+    }
+
+    private static func isInside(_ url: URL, directory: URL) -> Bool {
+        let path = standardizedPath(url)
+        let directoryPath = standardizedPath(directory)
+        return path == directoryPath || path.hasPrefix(directoryPath + "/")
     }
 
     private static func standardizedPath(_ url: URL) -> String {

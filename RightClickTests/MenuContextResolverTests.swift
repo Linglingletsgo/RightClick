@@ -45,6 +45,25 @@ final class MenuContextResolverTests: XCTestCase {
         XCTAssertEqual(context, .container(folder))
     }
 
+    func testItemsContextFallsBackToContainerWhenSelectionIsOutsideTargetedDirectory() {
+        let mobileDocuments = URL(fileURLWithPath: "/Users/example/Library/Mobile Documents", isDirectory: true)
+        let cloudDocs = mobileDocuments.appendingPathComponent("com~apple~CloudDocs", isDirectory: true)
+        let staleSelection = [
+            mobileDocuments
+                .appendingPathComponent("iCloud~com~example~App", isDirectory: true)
+                .appendingPathComponent("Documents", isDirectory: true)
+        ]
+
+        let context = MenuContextResolver.resolve(
+            menuKind: .items,
+            selectedURLs: staleSelection,
+            targetedURL: cloudDocs,
+            watchedFolders: [mobileDocuments]
+        )
+
+        XCTAssertEqual(context, .container(cloudDocs))
+    }
+
     func testReturnsUnsupportedOutsideWatchedFolders() {
         let watched = URL(fileURLWithPath: "/Users/example", isDirectory: true)
         let outside = URL(fileURLWithPath: "/Volumes/External/file.txt")

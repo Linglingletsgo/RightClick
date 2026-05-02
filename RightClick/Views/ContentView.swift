@@ -111,6 +111,12 @@ private struct WatchedFoldersView: View {
             } label: {
                 Label("Add Folder", systemImage: "plus")
             }
+
+            if let errorMessage = viewModel.errorMessage {
+                Text(errorMessage)
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+            }
         }
     }
 }

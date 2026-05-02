@@ -23,6 +23,8 @@
 		000000000000000000000318 /* UserHomeDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000218 /* UserHomeDirectory.swift */; };
 		000000000000000000000319 /* OfficeTemplateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000219 /* OfficeTemplateData.swift */; };
 		000000000000000000000320 /* HiddenFilesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000224 /* HiddenFilesController.swift */; };
+		000000000000000000000321 /* WatchedFolderPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000225 /* WatchedFolderPolicy.swift */; };
+		000000000000000000000322 /* ObservedDirectoryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000226 /* ObservedDirectoryProvider.swift */; };
 		000000000000000000000330 /* RightClickFinderExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 000000000000000000000102 /* RightClickFinderExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		000000000000000000000410 /* ActionLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000210 /* ActionLogger.swift */; };
 		000000000000000000000411 /* ConfigStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000211 /* ConfigStore.swift */; };
@@ -36,6 +38,8 @@
 		000000000000000000000419 /* OfficeTemplateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000219 /* OfficeTemplateData.swift */; };
 		000000000000000000000420 /* FinderActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000220 /* FinderActions.swift */; };
 		000000000000000000000421 /* FinderSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000221 /* FinderSync.swift */; };
+		000000000000000000000422 /* WatchedFolderPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000225 /* WatchedFolderPolicy.swift */; };
+		000000000000000000000423 /* ObservedDirectoryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000226 /* ObservedDirectoryProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +91,8 @@
 		000000000000000000000222 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		000000000000000000000223 /* RightClickFinderExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RightClickFinderExtension.entitlements; sourceTree = "<group>"; };
 		000000000000000000000224 /* HiddenFilesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenFilesController.swift; sourceTree = "<group>"; };
+		000000000000000000000225 /* WatchedFolderPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchedFolderPolicy.swift; sourceTree = "<group>"; };
+		000000000000000000000226 /* ObservedDirectoryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservedDirectoryProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +202,8 @@
 				000000000000000000000217 /* RightClickCore.swift */,
 				000000000000000000000216 /* RightClickDefaults.swift */,
 				000000000000000000000218 /* UserHomeDirectory.swift */,
+				000000000000000000000225 /* WatchedFolderPolicy.swift */,
+				000000000000000000000226 /* ObservedDirectoryProvider.swift */,
 				000000000000000000000219 /* OfficeTemplateData.swift */,
 			);
 			path = RightClickCore;
@@ -317,6 +325,8 @@
 				000000000000000000000318 /* UserHomeDirectory.swift in Sources */,
 				000000000000000000000319 /* OfficeTemplateData.swift in Sources */,
 				000000000000000000000320 /* HiddenFilesController.swift in Sources */,
+				000000000000000000000321 /* WatchedFolderPolicy.swift in Sources */,
+				000000000000000000000322 /* ObservedDirectoryProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +346,8 @@
 				000000000000000000000416 /* RightClickDefaults.swift in Sources */,
 				000000000000000000000418 /* UserHomeDirectory.swift in Sources */,
 				000000000000000000000419 /* OfficeTemplateData.swift in Sources */,
+				000000000000000000000422 /* WatchedFolderPolicy.swift in Sources */,
+				000000000000000000000423 /* ObservedDirectoryProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,7 +492,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../PlugIns",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dominicduan.RightClick;
 				PRODUCT_NAME = RightClick;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -506,7 +518,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../PlugIns",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dominicduan.RightClick;
 				PRODUCT_NAME = RightClick;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -530,7 +542,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dominicduan.RightClick.FinderExtension;
 				PRODUCT_NAME = RightClickFinderExtension;
 				SKIP_INSTALL = YES;
@@ -556,7 +568,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dominicduan.RightClick.FinderExtension;
 				PRODUCT_NAME = RightClickFinderExtension;
 				SKIP_INSTALL = YES;

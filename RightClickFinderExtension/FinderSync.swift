@@ -8,6 +8,7 @@ final class FinderSync: FIFinderSync {
     private let actions = FinderActions()
     private var lastSelectedURLs: [URL] = []
     private var lastContainerURL: URL?
+    private var observedDirectoryPaths = Set<String>()
 
     override init() {
         super.init()
@@ -158,7 +159,15 @@ final class FinderSync: FIFinderSync {
     }
 
     private func reloadObservedDirectories(from config: RightClickConfig) {
-        controller.directoryURLs = Set(config.watchedFolders.map(\.url))
+        let watchedURLs = ObservedDirectoryProvider.directories(for: config.watchedFolders)
+        let paths = Set(watchedURLs.map { $0.standardizedFileURL.path })
+
+        if paths != observedDirectoryPaths {
+            observedDirectoryPaths = paths
+            ActionLogger.info("Watched directories: \(paths.sorted().joined(separator: "|"))")
+        }
+
+        controller.directoryURLs = Set(watchedURLs)
     }
 
     private func rightClickMenuKind(from menuKind: FIMenuKind) -> RightClickMenuKind {

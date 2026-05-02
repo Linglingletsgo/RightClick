@@ -55,6 +55,8 @@ public final class ConfigStore {
             existingTemplateExtensions.insert(template.fileExtension.lowercased())
         }
 
+        merged.watchedFolders = WatchedFolderPolicy.allowedFolders(from: merged.watchedFolders)
+
         return merged
     }
 }

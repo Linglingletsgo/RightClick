@@ -26,12 +26,22 @@ final class ConfigViewModel: ObservableObject {
     }
 
     func addWatchedFolder(_ url: URL) {
-        guard !config.watchedFolders.contains(where: { $0.url.standardizedFileURL == url.standardizedFileURL }) else {
+        let normalizedURL = WatchedFolderPolicy.normalizedURL(url)
+
+        guard WatchedFolderPolicy.allowsWatching(normalizedURL) else {
+            errorMessage = WatchedFolderPolicy.isCloudProviderLocation(normalizedURL)
+                ? "iCloud Drive and other cloud provider folders are not supported."
+                : "Choose a folder inside the external drive instead of the drive itself."
+            ActionLogger.error(errorMessage ?? "Unsupported watched folder.")
+            return
+        }
+
+        guard !config.watchedFolders.contains(where: { WatchedFolderPolicy.normalizedURL($0.url) == normalizedURL }) else {
             return
         }
 
         config.watchedFolders.append(
-            WatchedFolder(name: url.lastPathComponent, url: url, isDefault: false)
+            WatchedFolder(name: normalizedURL.lastPathComponent, url: normalizedURL, isDefault: false)
         )
         persist()
     }
