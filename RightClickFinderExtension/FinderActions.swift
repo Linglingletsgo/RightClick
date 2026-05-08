@@ -64,8 +64,30 @@ final class FinderActions {
             return
         }
 
-        NSWorkspace.shared.open(folder.url)
-        ActionLogger.info("Opened folder: \(folder.url.path)")
+        guard var components = URLComponents(string: "rightclick://open-folder") else {
+            ActionLogger.error("Could not create open-folder command")
+            return
+        }
+
+        components.queryItems = [
+            URLQueryItem(name: "url", value: folder.url.absoluteString)
+        ]
+
+        guard let commandURL = components.url else {
+            ActionLogger.error("Could not encode open-folder command for: \(folder.url.path)")
+            return
+        }
+
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/usr/bin/open")
+        process.arguments = ["-g", "-j", commandURL.absoluteString]
+
+        do {
+            try process.run()
+            ActionLogger.info("Dispatched open folder command: \(folder.url.path)")
+        } catch {
+            ActionLogger.error("Could not dispatch open folder command: \(error.localizedDescription)")
+        }
     }
 
     private func copyToPasteboard(_ value: String) {

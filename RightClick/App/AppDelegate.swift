@@ -63,9 +63,31 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSWindowDelegate {
             pendingInitialWindow?.cancel()
             HiddenFilesController.toggle()
             terminateIfOnlyBackgroundCommand()
+        case "open-folder":
+            handledBackgroundCommand = true
+            pendingInitialWindow?.cancel()
+            openFolder(from: url)
+            terminateIfOnlyBackgroundCommand()
         default:
             ActionLogger.error("Unsupported URL command: \(url.absoluteString)")
         }
+    }
+
+    private func openFolder(from commandURL: URL) {
+        guard let components = URLComponents(url: commandURL, resolvingAgainstBaseURL: false),
+              let folderValue = components.queryItems?.first(where: { $0.name == "url" })?.value,
+              let folderURL = URL(string: folderValue) else {
+            ActionLogger.error("Could not decode open-folder command: \(commandURL.absoluteString)")
+            return
+        }
+
+        guard FileManager.default.fileExists(atPath: folderURL.path) else {
+            ActionLogger.error("Open folder command target does not exist: \(folderURL.path)")
+            return
+        }
+
+        NSWorkspace.shared.open(folderURL)
+        ActionLogger.info("Opened folder from app: \(folderURL.path)")
     }
 
     @objc private func handleGetURLEvent(

@@ -43,7 +43,7 @@ Selected-item menus do not show `New`. Blank-area folder menus do not show `Copy
 
 ## Install
 
-1. Download `RightClick-0.2.0.dmg` from the GitHub release.
+1. Download `RightClick-0.2.1.dmg` from the GitHub release.
 2. Open the DMG and drag `RightClick.app` into `Applications`.
 3. Launch `RightClick.app`.
    - RightClick is not notarized yet. If macOS blocks the first launch, right-click `RightClick.app` in `Applications`, choose `Open`, then choose `Open` again in the confirmation dialog.
@@ -72,11 +72,11 @@ Package a DMG:
 ./script/package_dmg.sh
 ```
 
-The DMG is written to `dist/RightClick-0.2.0.dmg`.
+The DMG is written to `dist/RightClick-0.2.1.dmg`.
 
 ## Notes
 
 - RightClick is built for personal use and is not designed as a public plugin platform.
 - The app uses macOS Finder Sync, so menus only appear inside watched folders.
 - The app is locally signed for personal use but is not Apple notarized. For broader public distribution, use a Developer ID certificate and Apple notarization.
-- Version `0.2.0` targets macOS 26.
+- Version `0.2.1` targets macOS 26.

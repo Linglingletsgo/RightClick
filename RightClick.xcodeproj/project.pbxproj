@@ -492,7 +492,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../PlugIns",
 				);
-				MARKETING_VERSION = 0.2.0;
+				MARKETING_VERSION = 0.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dominicduan.RightClick;
 				PRODUCT_NAME = RightClick;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -518,7 +518,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../PlugIns",
 				);
-				MARKETING_VERSION = 0.2.0;
+				MARKETING_VERSION = 0.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dominicduan.RightClick;
 				PRODUCT_NAME = RightClick;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -542,7 +542,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MARKETING_VERSION = 0.2.0;
+				MARKETING_VERSION = 0.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dominicduan.RightClick.FinderExtension;
 				PRODUCT_NAME = RightClickFinderExtension;
 				SKIP_INSTALL = YES;
@@ -568,7 +568,7 @@
 					"@executable_path/../Frameworks",
 					"@executable_path/../../../../Frameworks",
 				);
-				MARKETING_VERSION = 0.2.0;
+				MARKETING_VERSION = 0.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dominicduan.RightClick.FinderExtension;
 				PRODUCT_NAME = RightClickFinderExtension;
 				SKIP_INSTALL = YES;
