@@ -12,6 +12,7 @@ final class FinderSync: FIFinderSync {
 
     override init() {
         super.init()
+        registerForRefreshEvents()
         reloadObservedDirectories(from: store.load())
         ActionLogger.info("FinderSync initialized")
     }
@@ -168,6 +169,33 @@ final class FinderSync: FIFinderSync {
         }
 
         controller.directoryURLs = Set(watchedURLs)
+    }
+
+    private func registerForRefreshEvents() {
+        DistributedNotificationCenter.default().addObserver(
+            self,
+            selector: #selector(refreshObservedDirectories),
+            name: RightClickNotifications.configDidChange,
+            object: nil
+        )
+
+        NSWorkspace.shared.notificationCenter.addObserver(
+            self,
+            selector: #selector(refreshObservedDirectories),
+            name: NSWorkspace.didMountNotification,
+            object: nil
+        )
+
+        NSWorkspace.shared.notificationCenter.addObserver(
+            self,
+            selector: #selector(refreshObservedDirectories),
+            name: NSWorkspace.didUnmountNotification,
+            object: nil
+        )
+    }
+
+    @objc private func refreshObservedDirectories() {
+        reloadObservedDirectories(from: store.load())
     }
 
     private func rightClickMenuKind(from menuKind: FIMenuKind) -> RightClickMenuKind {

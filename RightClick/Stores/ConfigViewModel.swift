@@ -19,6 +19,12 @@ final class ConfigViewModel: ObservableObject {
         do {
             try store.save(config)
             errorMessage = nil
+            DistributedNotificationCenter.default().postNotificationName(
+                RightClickNotifications.configDidChange,
+                object: nil,
+                userInfo: nil,
+                deliverImmediately: true
+            )
         } catch {
             errorMessage = "Could not save settings: \(error.localizedDescription)"
             ActionLogger.error(errorMessage ?? "Could not save settings.")

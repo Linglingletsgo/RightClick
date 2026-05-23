@@ -59,11 +59,6 @@ final class FinderActions {
     }
 
     func openFolder(_ folder: FavoriteFolder) {
-        guard FileManager.default.fileExists(atPath: folder.url.path) else {
-            ActionLogger.error("Open folder target does not exist: \(folder.url.path)")
-            return
-        }
-
         guard var components = URLComponents(string: "rightclick://open-folder") else {
             ActionLogger.error("Could not create open-folder command")
             return

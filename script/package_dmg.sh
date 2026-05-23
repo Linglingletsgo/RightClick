@@ -2,7 +2,7 @@
 set -euo pipefail
 
 APP_NAME="RightClick"
-VERSION="0.2.1"
+VERSION="0.2.2"
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DERIVED_DATA="$ROOT_DIR/.build/xcode-release"
